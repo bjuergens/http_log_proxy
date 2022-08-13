@@ -16,7 +16,12 @@ env LOG_FORMAT_ESCAPE json
 env LOG_MAX_BODY_LENGTH 1000
 env TARGET_HOST example_web
 
+env LOG_FORMAT '$remote_addr - $remote_user [$time_local] \
+"$request" $status $body_bytes_sent \
+"$http_referer" "$http_user_agent" $request_time \
+<"$request_body" >"$lua_resp_body"'
+
 cmd envsubst '' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf \
- && envsubst '$LOG_FORMAT_ESCAPE, $LOG_MAX_BODY_LENGTH,$TARGET_HOST' < /etc/nginx/conf.d/proxy.conf.template > /etc/nginx/conf.d/proxy.conf \
+ && envsubst '$LOG_FORMAT_ESCAPE, $LOG_MAX_BODY_LENGTH,$TARGET_HOST,$LOG_FORMAT' < /etc/nginx/conf.d/proxy.conf.template > /etc/nginx/conf.d/proxy.conf \
  && nginx -t \
  && nginx
