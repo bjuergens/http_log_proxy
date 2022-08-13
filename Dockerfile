@@ -15,6 +15,7 @@ env LOG_FORMAT_ESCAPE json
 
 env LOG_MAX_BODY_LENGTH 1000
 env TARGET_HOST ""
+env TARGET_PORT 80
 
 env LOG_FORMAT '$remote_addr - $remote_user [$time_local] \
 "$request" $status $body_bytes_sent \
@@ -23,6 +24,6 @@ env LOG_FORMAT '$remote_addr - $remote_user [$time_local] \
 
 cmd echo $TARGET_HOST; if [ -z "${TARGET_HOST}" ]; then echo "variable \$TARGET_HOST not set"; exit 1; fi \
  && envsubst '' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf \
- && envsubst '$LOG_FORMAT_ESCAPE, $LOG_MAX_BODY_LENGTH,$TARGET_HOST,$LOG_FORMAT' < /etc/nginx/conf.d/proxy.conf.template > /etc/nginx/conf.d/proxy.conf \
+ && envsubst '$LOG_FORMAT_ESCAPE, $LOG_MAX_BODY_LENGTH,$TARGET_HOST,$LOG_FORMAT,$TARGET_PORT' < /etc/nginx/conf.d/proxy.conf.template > /etc/nginx/conf.d/proxy.conf \
  && nginx -t \
  && nginx

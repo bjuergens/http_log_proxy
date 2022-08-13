@@ -39,7 +39,7 @@ server {
     location / {
         # this block just has all parameters needed for any kinds of reverse proxying
 
-        proxy_pass http://$TARGET_HOST:80/;
+        proxy_pass http://$TARGET_HOST:$TARGET_PORT/;
 
         # https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
         proxy_set_header Host $host;
