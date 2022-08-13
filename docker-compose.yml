@@ -1,0 +1,14 @@
+
+version: "3.7"
+services:
+
+  example_web:
+    image: traefik/whoami
+    ports:
+      - 81:80
+  
+  http_log:
+    build:
+      context: .
+    ports:
+      - 80:80
