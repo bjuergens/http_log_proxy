@@ -4,6 +4,8 @@ services:
 
   example_web:
     image: nginx
+    environment:
+      NGINX_ENTRYPOINT_QUIET_LOGS: 1
     ports:
       - 81:80
   
