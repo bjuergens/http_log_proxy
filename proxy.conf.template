@@ -28,11 +28,21 @@ server {
         end
         return requ_headers_all
     }
-    set $resp_headers "";
+    
+    # for a discussion why resp_headers_short and resp_headers_full are different
+    # see https://github.com/openresty/lua-nginx-module/issues/1595#issuecomment-530597829
+    set_by_lua_block $resp_headers_short{
+        local lua_resp_headers_short = ""
+        for k, v in pairs(ngx.resp.get_headers()) do
+            lua_resp_headers_short = lua_resp_headers_short .. k.."="..v.." "
+        end
+        return lua_resp_headers_short
+    }
+    
+    set $resp_headers_full "";
     header_filter_by_lua '
-        local rh = ngx.resp.get_headers()
-        for k, v in pairs(rh) do
-            ngx.var.resp_headers = ngx.var.resp_headers .. k.."="..v.." "
+        for k, v in pairs(ngx.resp.get_headers()) do
+            ngx.var.resp_headers_full = ngx.var.resp_headers_full .. k.."="..v.." "
         end
     ';
 

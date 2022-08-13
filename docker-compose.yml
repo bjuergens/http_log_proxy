@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   example_web:
-    image: nginx
+    image: nginx:1.19
     environment:
       NGINX_ENTRYPOINT_QUIET_LOGS: 1
     ports:
@@ -16,7 +16,7 @@ services:
       LOG_FORMAT: >
         '$$status $$body_bytes_sent "$$request" '
         '<<<< ((($$requ_headers))) $$request_body '
-        '>>>> ((($$resp_headers))) $$resp_body'
+        '>>>> ((($$resp_headers_short))) $$resp_body'
     build:
       context: .
     ports:

@@ -16,7 +16,7 @@ env LOG_MAX_BODY_LENGTH 1000
 env LOG_FORMAT '$remote_addr - $remote_user [$time_local] \
 "$request" $status $body_bytes_sent \
 "$http_referer" "$http_user_agent" $request_time \
-< ($requ_headers) "$request_body" > ($resp_headers) "$resp_body"'
+< ($requ_headers) "$request_body" > ($resp_headers_full) "$resp_body"'
 env TARGET_HOST ""
 env TARGET_PORT 80
 
