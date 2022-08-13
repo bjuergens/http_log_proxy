@@ -17,22 +17,22 @@ server {
         end
     ';
 
-    set_by_lua_block $request_headers{
+    set_by_lua_block $requ_headers{
         local h = ngx.req.get_headers()
-        local request_headers_all = ""
+        local requ_headers_all = ""
         for k, v in pairs(h) do
             local rowtext = ""
             rowtext = string.format("[%s %s]\n", k, v)
-            request_headers_all = request_headers_all .. rowtext
+            requ_headers_all = requ_headers_all .. rowtext
 
         end
-        return request_headers_all
+        return requ_headers_all
     }
-    set $resp_header "";
+    set $resp_headers "";
     header_filter_by_lua '
         local rh = ngx.resp.get_headers()
         for k, v in pairs(rh) do
-            ngx.var.resp_header = ngx.var.resp_header .. k.."="..v.." "
+            ngx.var.resp_headers = ngx.var.resp_headers .. k.."="..v.." "
         end
     ';
 
