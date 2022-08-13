@@ -9,6 +9,7 @@ services:
   
   http_log:
     environment:
+      TARGET_HOST: example_web
       LOG_FORMAT: >
         '$$status $$body_bytes_sent "$$request" '
         '<<<<$$request_body >>>>$$lua_resp_body'
