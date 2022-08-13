@@ -7,13 +7,13 @@ server {
     listen       80;
 
     lua_need_request_body on;
-    set $lua_resp_body "";
+    set $resp_body "";
     set $real_log_max_body_length $LOG_MAX_BODY_LENGTH;
     body_filter_by_lua '
-        local resp_body = string.sub(ngx.arg[1], 1, ngx.var.real_log_max_body_length)
-        ngx.ctx.buffered = (ngx.ctx.buffered or "") .. resp_body
+        local lua_resp_body = string.sub(ngx.arg[1], 1, ngx.var.real_log_max_body_length)
+        ngx.ctx.buffered = (ngx.ctx.buffered or "") .. lua_resp_body
         if ngx.arg[2] then
-            ngx.var.lua_resp_body = ngx.ctx.buffered
+            ngx.var.resp_body = ngx.ctx.buffered
         end
     ';
 
