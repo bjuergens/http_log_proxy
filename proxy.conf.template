@@ -19,7 +19,6 @@ server {
             ngx.var.lua_resp_body = ngx.ctx.buffered
         end
     ';
-    access_log  /dev/stdout  bodylog;
 
     location / {
         # this block just has all parameters needed for any kinds of reverse proxying
