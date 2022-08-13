@@ -17,6 +17,18 @@ server {
         end
     ';
 
+    set_by_lua_block $request_headers{
+  local h = ngx.req.get_headers()
+  local request_headers_all = ""
+  for k, v in pairs(h) do
+    local rowtext = ""
+    rowtext = string.format("[%s %s]\n", k, v)
+    request_headers_all = request_headers_all .. rowtext
+
+  end
+  return request_headers_all
+}
+
     location / {
         # this block just has all parameters needed for any kinds of reverse proxying
 

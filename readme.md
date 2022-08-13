@@ -16,4 +16,4 @@ relevant dev-reading
 related/relevant alternatives
 
 * https://github.com/nginx-proxy/nginx-proxy
-* 
+* https://docs.mitmproxy.org/stable/
