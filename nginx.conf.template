@@ -3,7 +3,7 @@ load_module /usr/lib/nginx/modules/ngx_http_lua_module.so;
 user  nginx;
 worker_processes  auto;
 
-error_log  /var/log/nginx/error.log notice;
+error_log $ERROR_LOG_TARGET $ERROR_LOG_LEVEL;
 pid        /var/run/nginx.pid;
 daemon off;
 
