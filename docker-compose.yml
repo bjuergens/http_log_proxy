@@ -8,6 +8,10 @@ services:
       - 81:80
   
   http_log:
+    environment:
+      LOG_FORMAT: >
+        '$$status $$body_bytes_sent "$$request" '
+        '<<<<$$request_body >>>>$$lua_resp_body'
     build:
       context: .
     ports:
