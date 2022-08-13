@@ -1,8 +1,8 @@
 
-log_format bodylog escape=json '$remote_addr - $remote_user [$time_local] '
+log_format bodylog escape=$LOG_FORMAT_ESCAPE '$remote_addr - $remote_user [$time_local] '
         '"$request" $status $body_bytes_sent '
         '"$http_referer" "$http_user_agent" $request_time '
-        '<"$request_body" >"$resp_body"';
+        '<"$request_body" >"$lua_resp_body"';
 
 access_log  /dev/stdout  bodylog;
 
@@ -10,12 +10,13 @@ server {
     listen       80;
 
     lua_need_request_body on;
-    set $resp_body "";
+    set $lua_resp_body "";
+    set $real_log_max_body_length $LOG_MAX_BODY_LENGTH;
     body_filter_by_lua '
-        local resp_body = string.sub(ngx.arg[1], 1, 1000)
+        local resp_body = string.sub(ngx.arg[1], 1, ngx.var.real_log_max_body_length)
         ngx.ctx.buffered = (ngx.ctx.buffered or "") .. resp_body
         if ngx.arg[2] then
-            ngx.var.resp_body = ngx.ctx.buffered
+            ngx.var.lua_resp_body = ngx.ctx.buffered
         end
     ';
     access_log  /dev/stdout  bodylog;
@@ -23,7 +24,7 @@ server {
     location / {
         # this block just has all parameters needed for any kinds of reverse proxying
 
-        proxy_pass http://example_web:80/;
+        proxy_pass http://$TARGET_HOST:80/;
 
         # https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
         proxy_set_header Host $host;
