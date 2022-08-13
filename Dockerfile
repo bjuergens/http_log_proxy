@@ -3,11 +3,13 @@
 # run apk update && apk add --no-cache nginx-mod-http-lua
 
 from alpine:3.15
-run apk update && apk add --no-cache nginx nginx-mod-http-lua
+run apk update && apk add --no-cache nginx nginx-mod-http-lua gettext
 
-copy proxy.conf /etc/nginx/conf.d/
+copy proxy.conf.template /etc/nginx/conf.d/
 
-copy nginx.conf /etc/nginx/
+copy nginx.conf.template /etc/nginx/
 
-
-cmd nginx -t && nginx
+cmd envsubst '' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf \
+ && envsubst '' < /etc/nginx/conf.d/proxy.conf.template > /etc/nginx/conf.d/proxy.conf \
+ && nginx -t \
+ && nginx
