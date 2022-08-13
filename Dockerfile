@@ -19,8 +19,7 @@ env TARGET_HOST ""
 env LOG_FORMAT '$remote_addr - $remote_user [$time_local] \
 "$request" $status $body_bytes_sent \
 "$http_referer" "$http_user_agent" $request_time \
-$request_headers \
-<"$request_body" >"$lua_resp_body"'
+< ($request_headers) "$request_body" > ($resp_header) "$lua_resp_body"'
 
 cmd echo $TARGET_HOST; if [ -z "${TARGET_HOST}" ]; then echo "variable \$TARGET_HOST not set"; exit 1; fi \
  && envsubst '' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf \

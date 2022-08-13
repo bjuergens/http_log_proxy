@@ -11,6 +11,7 @@ inspired by
 relevant dev-reading
 
 * https://github.com/docker-library/docs/tree/master/nginx#using-environment-variables-in-nginx-configuration-new-in-119
+* https://www.hardill.me.uk/wordpress/2018/03/14/logging-requests-and-response-with-nginx/
 
 
 related/relevant alternatives
