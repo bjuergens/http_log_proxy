@@ -79,14 +79,14 @@ this image aimes to be a simple and uncomplicated way to get a quick glance into
 * https://docs.mitmproxy.org/stable/
 
 
-# known restriction/limitations
+## known restriction/limitations
 
 the response-headers `Date` and `Server` do not show up in the respective variable and thus can not be logged. This limitation comes from nginx. If you find a workaround/solution to this limitation, please let me know by opening an issue.
 
 
-
-
 # dev info
+
+here is some stuff I am sure to forget until the next time I do maintenance on this repo
 
 relevant dev-reading
 
@@ -94,5 +94,11 @@ relevant dev-reading
 * https://www.hardill.me.uk/wordpress/2018/03/14/logging-requests-and-response-with-nginx/
 
 
+## update image
+
+    docker login -u bjuergens
+    docker build -t bjuergens/http_log_proxy --pull .
+    docker run -it bjuergens/http_log_proxy # rudimentary test
+    docker push bjuergens/http_log_proxy
 
 
