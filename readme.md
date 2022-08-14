@@ -1,6 +1,10 @@
 
 a simple dockerimage for a proxy that logs http-bodys (both requests and responses). Based on nginx/alpine. 
 
+source-code: https://github.com/bjuergens/http_log_proxy
+
+docker-image: https://hub.docker.com/r/bjuergens/http_log_proxy
+
 
 inspired by
 
@@ -78,6 +82,7 @@ this image aimes to be a simple and uncomplicated way to get a quick glance into
 * https://github.com/nginx-proxy/nginx-proxy
 * https://docs.mitmproxy.org/stable/
 
+on the other hand if you can think of a useful feature, that doesn't add too much complexity, feel free to let me know and open an issue. 
 
 ## known restriction/limitations
 
