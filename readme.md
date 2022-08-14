@@ -83,6 +83,8 @@ this image aimes to be a simple and uncomplicated way to get a quick glance into
 
 the response-headers `Date` and `Server` do not show up in the respective variable and thus can not be logged. This limitation comes from nginx. If you find a workaround/solution to this limitation, please let me know by opening an issue.
 
+the logs will probably contain many sensible information and even GDPR violations, so I recommend using this image for debugging purposes only. If you find a good use case for this image beside debugging, feel free to let me know. 
+
 
 # dev info
 
@@ -101,4 +103,5 @@ relevant dev-reading
     docker run -it bjuergens/http_log_proxy # rudimentary test
     docker push bjuergens/http_log_proxy
 
+optional: update readme in dockerhub (leave out dev-section)
 
