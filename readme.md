@@ -39,7 +39,7 @@ and you will start to see log-messages for your requests in your `docker compose
 
     http_log_1     | 172.18.0.1-[14/Aug/2022:06:58:05 +0000]GET / HTTP/1.1200615curl/7.81.00.001<([host localhost]\n[user-agent curl/7.81.0]\n[accept */*]\n)>(content-type=text/html content-length=615 accept-ranges=bytes last-modified=Tue, 19 Jul 2022 14:05:27 GMT connection=keep-alive etag=\"62d6ba27-267\" )<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>....
 
-for a little more complex example, see the [composefile in this repo](docker-compose.yml)
+for a little more complex example using optional env-vars, see the [composefile in this repo](docker-compose.yml)
 
 # customization 
 
