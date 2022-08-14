@@ -15,8 +15,8 @@ services:
       LOG_MAX_BODY_LENGTH: 50
       LOG_FORMAT: >
         '$$status $$body_bytes_sent "$$request" '
-        '<<<< ((($$requ_headers))) $$request_body '
-        '>>>> ((($$resp_headers_short))) $$resp_body'
+        '<<<< $$requ_headers ++++ $$request_body '
+        '>>>> $$resp_headers_short ++++ $$resp_body'
     build:
       context: .
     ports:
