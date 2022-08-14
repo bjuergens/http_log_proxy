@@ -1,5 +1,5 @@
 
-a simple dockerimage for a proxy that logs http-bodys (both requests and responses). 
+a simple dockerimage for a proxy that logs http-bodys (both requests and responses). Based on nginx/alpine. 
 
 
 inspired by
@@ -31,9 +31,15 @@ then your new dockerfile will look like this
         http_log:
             environment:
                 TARGET_HOST: example_web
-            image: http_log_proxy
+            image: ########################TODO########################
             ports:
                 - 80:80
+
+and you will start to see log-messages for your requests in your `docker compose logs`, like this 
+
+    http_log_1     | 172.18.0.1-[14/Aug/2022:06:58:05 +0000]GET / HTTP/1.1200615curl/7.81.00.001<([host localhost]\n[user-agent curl/7.81.0]\n[accept */*]\n)>(content-type=text/html content-length=615 accept-ranges=bytes last-modified=Tue, 19 Jul 2022 14:05:27 GMT connection=keep-alive etag=\"62d6ba27-267\" )<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>....
+
+for a little more complex example, see the [composefile in this repo](docker-compose.yml)
 
 # customization 
 
@@ -62,15 +68,25 @@ The variable `LOG_FORMAT` uses [nginx's own log_format directrive](http://nginx.
 
 ## via config files
 
-if env-vars 
+if env-vars are not enough, you can always mount new configfiles as volumes. Note that known configs (`nginx.conf` and `proxy.conf`) are created from template-files, while any new configs you may create will be used directly. 
+
+
+## alternatives
+
+this image aimes to be a simple and uncomplicated way to get a quick glance into the http-requests for a single services. The simplicity comes at the cost of generality. If your situation requires a more sophisticated and heavier solution, consider some of the alternatives, e.g
+
+* https://github.com/nginx-proxy/nginx-proxy
+* https://docs.mitmproxy.org/stable/
+
+
+# known restriction/limitations
+
+the response-headers `Date` and `Server` do not show up in the respective variable and thus can not be logged. This limitation comes from nginx. If you find a workaround/solution to this limitation, please let me know by opening an issue.
 
 
 
-# restriction/limitations
 
-
-
-# dev
+# dev info
 
 relevant dev-reading
 
@@ -78,9 +94,5 @@ relevant dev-reading
 * https://www.hardill.me.uk/wordpress/2018/03/14/logging-requests-and-response-with-nginx/
 
 
-related/relevant alternatives
-
-* https://github.com/nginx-proxy/nginx-proxy
-* https://docs.mitmproxy.org/stable/
 
 
