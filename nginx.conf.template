@@ -11,6 +11,8 @@ events {
     worker_connections  1024;
 }
 
+$EXTRA_DIRECTIVES_ROOT
+
 
 http {
     include       /etc/nginx/mime.types;
@@ -22,6 +24,8 @@ http {
     keepalive_timeout  65;
 
     #gzip  on;
+
+    $EXTRA_DIRECTIVES_HTTP
 
     include /etc/nginx/conf.d/*.conf;
 }

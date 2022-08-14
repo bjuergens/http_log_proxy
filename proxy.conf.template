@@ -46,34 +46,11 @@ server {
         end
     ';
 
+    $EXTRA_DIRECTIVES_SERVER
+
     location / {
-        # this block just has all parameters needed for any kinds of reverse proxying
-
         proxy_pass http://$TARGET_HOST:$TARGET_PORT/;
-
-        # https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-
-        # https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/How-to-setup-Nginx-reverse-proxy-servers-by-example
-        proxy_buffering off;
-        # proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Forwarded-Port $server_port;
-        
-        # https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-nginx/
-        # proxy_set_header   Connection        $connection_upgrade;
-        proxy_set_header   Upgrade           $http_upgrade;
-        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header   X-Forwarded-Proto $scheme;
-
-        proxy_max_temp_file_size 0;
-        client_max_body_size       10m;
-        client_body_buffer_size    128k;
-
-        proxy_connect_timeout      90;
-        proxy_send_timeout         90;
-        proxy_read_timeout         90;
-        proxy_request_buffering    off;
+        $DEFAULT_DIRECTIVES_PROXY
+        $EXTRA_DIRECTIVES_LOCATION
     }
 }
