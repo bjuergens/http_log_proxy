@@ -31,7 +31,7 @@ then your new dockerfile will look like this
         http_log:
             environment:
                 TARGET_HOST: example_web
-            image: ########################TODO########################
+            image: bjuergens/http_log_proxy
             ports:
                 - 80:80
 
