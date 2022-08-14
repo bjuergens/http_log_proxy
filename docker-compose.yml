@@ -10,6 +10,9 @@ services:
       - 81:80
   
   http_log:
+    # image: bjuergens/http_log_proxy
+    build:
+      context: .
     environment:
       TARGET_HOST: example_web
       LOG_MAX_BODY_LENGTH: 50
@@ -17,7 +20,5 @@ services:
         '$$status $$body_bytes_sent "$$request" '
         '<<<< $$requ_headers ++++ $$request_body '
         '>>>> $$resp_headers_short ++++ $$resp_body'
-    build:
-      context: .
     ports:
       - 80:80
