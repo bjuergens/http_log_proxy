@@ -4,7 +4,7 @@ log_format bodylog escape=$LOG_FORMAT_ESCAPE $LOG_FORMAT;
 access_log  /dev/stdout  bodylog;
 
 server {
-    listen       80;
+    listen $OWN_PORT;
 
     lua_need_request_body on;
     set $resp_body "";
