@@ -39,11 +39,11 @@ server {
         return lua_resp_headers_short
     }
     
-    set $resp_headers_full "";
+    set $resp_headers_full "resp_headers_full is disabled until I have figured out why it sometimes changes the content";
     header_filter_by_lua '
-        for k, v in pairs(ngx.resp.get_headers()) do
-            ngx.var.resp_headers_full = ngx.var.resp_headers_full .. k.."="..v.." "
-        end
+        -- for k, v in pairs(ngx.resp.get_headers()) do
+        --    ngx.var.resp_headers_full = ngx.var.resp_headers_full .. k.."="..v.." "
+        -- end
     ';
 
     $EXTRA_DIRECTIVES_SERVER
