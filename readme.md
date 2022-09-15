@@ -105,7 +105,8 @@ relevant dev-reading
 
     docker login -u bjuergens
     docker build -t bjuergens/http_log_proxy --pull .
-    docker run -it bjuergens/http_log_proxy # rudimentary test
+    # rudimentary test
+    docker run -it -e TARGET_HOST=www.google.com -p 80:80 bjuergens/http_log_proxy
     docker push bjuergens/http_log_proxy
 
 optional: update readme in dockerhub (leave out dev-section)
