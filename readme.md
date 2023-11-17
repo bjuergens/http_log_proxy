@@ -45,6 +45,31 @@ and you will start to see log-messages for your requests in your `docker compose
 
 for a little more complex example using optional env-vars, see the [composefile in this repo](https://github.com/bjuergens/http_log_proxy/blob/master/docker-compose.yml)
 
+### complex example 
+
+lets assume, there are other containers using "example_web", too. Then the container-name must be changed as well, as well as the internal port of the proxy. And while we are at it, lets make the logformat more complex. (the syntax there is a little bit annoying, because it must satisfy nginx-logformat, nginx-syntax, yaml-syntax, and env-syntax.)
+
+    version: "3.8"
+    services:
+        example_web:
+            container-name: "example_web_orig"
+            image: nginx
+        http_log:
+            container-name: "example_web"
+            image: bjuergens/http_log_proxy
+            environment:                
+                  TARGET_HOST: example_web_orig
+                  TARGET_PORT: 8080
+                  OWN_PORT: 8080
+                  LOG_FORMAT: >
+                    '$$request STATUS: $$status REMOTE: $$remote_addr \n'
+                    '>>> HEAD: $$requ_headers \n'
+                    '>>> BODY: $$request_body \n'
+                    '<<< HEAD: $$resp_headers_short \n'
+                    '<<< BODY: $$resp_body \n'
+            ports:
+                - 80:8080
+
 # customization 
 
 ## via environment variables 
